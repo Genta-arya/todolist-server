@@ -2,6 +2,7 @@
 import express from "express";
 import { createServer } from "http";
 import cors from "cors";
+import { Routes } from "./src/Routes/Routes.js";
 
 
 const app = express();
@@ -14,6 +15,8 @@ app.use(
     credentials: true,
   })
 );
+
+app.use("/api/v1", Routes);
 
 
 httpServer.listen(PORT, () => {
