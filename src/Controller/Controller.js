@@ -3,7 +3,7 @@ import { handleError } from "../Utils/ErrorHandler.js";
 import { todoSchema } from "../Utils/SchemaJoi/Type.js";
 
 export const createTodo = async (req, res) => {
-  const { title, description } = req.body;
+  const { title, description, username } = req.body;
 
   const { error } = todoSchema.validate({ title, description });
 
@@ -26,6 +26,7 @@ export const createTodo = async (req, res) => {
       data: {
         title,
         description,
+        author: username,
         status: false,
       },
     });
@@ -77,22 +78,21 @@ export const updateStatus = async (req, res) => {
   }
 };
 
-
 export const deleteTodo = async (req, res) => {
   const { id } = req.params;
 
   try {
     const todo = await prisma.todolist.findUnique({
-      where: { id },      
+      where: { id },
     });
 
     if (!todo) {
       return res.status(404).json({ message: "Todo not found" });
-    }   
+    }
 
     await prisma.todolist.delete({
       where: { id },
-    }); 
+    });
 
     return res.status(200).json({ message: "Todo deleted successfully" });
   } catch (error) {

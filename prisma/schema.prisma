@@ -18,6 +18,7 @@ datasource db {
 model Todolist {
   id       String   @id @default(cuid())
   title    String
+  author String? @default("User")
   description  String?
   status   Boolean
   createdAt DateTime @default(now())
