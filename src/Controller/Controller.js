@@ -3,7 +3,7 @@ import { handleError } from "../Utils/ErrorHandler.js";
 import { todoSchema } from "../Utils/SchemaJoi/Type.js";
 
 export const createTodo = async (req, res) => {
-  const { title, description, username } = req.body;
+  const { title, description, author } = req.body;
 
   const { error } = todoSchema.validate({ title, description });
 
@@ -26,7 +26,7 @@ export const createTodo = async (req, res) => {
       data: {
         title,
         description,
-        author: username,
+        author,
         status: false,
       },
     });
